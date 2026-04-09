@@ -31,7 +31,8 @@ macro_rules! convert_enum {
 
 convert_enum! {
 pub enum Kem {
-    X25519Sha256 = 32,
+    P256Sha256 = 16,      // DHKEM(P-256, HKDF-SHA256) = 0x0010
+    X25519Sha256 = 32,    // DHKEM(X25519, HKDF-SHA256) = 0x0020
 }
 }
 
@@ -39,6 +40,7 @@ impl Kem {
     #[must_use]
     pub fn n_enc(self) -> usize {
         match self {
+            Kem::P256Sha256 => 65,
             Kem::X25519Sha256 => 32,
         }
     }
@@ -46,6 +48,7 @@ impl Kem {
     #[must_use]
     pub fn n_pk(self) -> usize {
         match self {
+            Kem::P256Sha256 => 65,
             Kem::X25519Sha256 => 32,
         }
     }
