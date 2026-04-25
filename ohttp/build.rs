@@ -55,8 +55,7 @@ mod nss {
 
     fn is_debug() -> bool {
         env::var("DEBUG")
-            .map(|d| d.parse::<bool>().unwrap_or(false))
-            .unwrap_or(false)
+            .is_ok_and(|d| d.parse::<bool>().unwrap_or(false))
     }
 
     // bindgen needs access to libclang.
